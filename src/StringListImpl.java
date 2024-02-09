@@ -6,6 +6,7 @@ import exception.StorageIsFullException;
 import java.util.Arrays;
 
 public class StringListImpl implements StringList {
+
     private final String[] elements;
 
     private int size;
