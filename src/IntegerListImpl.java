@@ -6,7 +6,7 @@ import exception.StorageIsFullException;
 import java.util.Arrays;
 
 public class IntegerListImpl implements IntegerList {
-    private final Integer[] elements;
+    private Integer[] elements;
 
     private int size;
 
@@ -38,7 +38,7 @@ public class IntegerListImpl implements IntegerList {
 
     @Override
     public Integer add(Integer item) {
-        validateSize();
+        grow();
         validateItem(item);
         elements[size++] = item;
         return item;
@@ -46,7 +46,7 @@ public class IntegerListImpl implements IntegerList {
 
     @Override
     public Integer add(int index, Integer item) {
-        validateSize();
+        grow();
         validateIndex(index);
         validateItem(item);
         if (index == size) {
@@ -157,6 +157,10 @@ public class IntegerListImpl implements IntegerList {
     @Override
     public Integer[] toArray() {
         return Arrays.copyOf(elements, size);
+    }
+
+    public void grow() {
+        elements = Arrays.copyOf(elements, size + size / 2);
     }
 
     private static void sortInsertion(Integer[] arr) {
